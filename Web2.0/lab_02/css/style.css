@@ -1,0 +1,283 @@
+/* General reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+	Font-family: 'Lato', sans-serif;
+}
+
+body {
+    min-width: 1000px;
+    background-color: #f4f4f4;
+	text-align: center;
+	margin: auto;
+}
+
+/* Header styling */
+header {
+    background: url('../images/apples.jpg') no-repeat center center/cover;
+    color: white;
+    padding: 20px;
+    text-align: center;
+	background-size: 100% 100%;
+    height: 600px;
+    width:100%;
+	Font-family: 'Lato', sans-serif;
+}
+
+.topheader {
+    margin-top: 0px;
+    color: #ffffff;
+    margin: 0px;
+    padding:10px;
+}
+
+header nav {
+    list-style-type: none;
+    display: flex;
+    justify-content: right;
+    gap: 20px;
+    margin: 20px 0;
+}
+
+header nav ul {
+    list-style-type: none;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin: 20px 0;
+}
+
+header nav a {
+    color: white;
+    text-decoration: none;
+    padding: 10px 15px;
+    border-radius: 1px;
+}
+
+header .hero {
+    margin: 20px 0;
+	vertical-align: middle;
+	text-align: center;
+}
+
+header .hero h2 {
+    font-size: 60px;
+    margin: auto;
+	padding: 30px;
+}
+
+header .hero h1 {
+    font-size: 100px;
+    margin-bottom: 0px;
+}
+
+header .btn-primary {
+    background-color: black;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+	margin: 10px;
+}
+
+.footernav {
+    margin-top: 0px;
+    color: #000;
+    margin: 0px;
+    padding:0px;
+}
+
+.footernav nav {
+    list-style-type: none;
+    display: flex;
+    justify-content: right;
+    gap: 20px;
+    margin: 20px 0;
+}
+
+.footernav nav ul {
+    list-style-type: none;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin: 20px 0;
+}
+
+.footernav nav a {
+    color: #000;
+    text-decoration: none;
+    padding: 10px 15px;
+    border-radius: 1px;
+}
+
+/* Main content styling */
+main {
+    padding: 40px;
+    background-color: #f3f3f3;
+}
+
+.text-block {
+	margin: 0 auto;
+    text-align: center;
+    line-height: 1.8;
+    font-size: 18px;
+	display: flex;
+}
+
+.featured-articles {
+    margin-top: 40px;
+    text-align: center;
+}
+
+.featured-articles h2 {
+    font-size: 30px;
+	padding-top: 20px;
+    margin-bottom: 20px;
+}
+
+.article-grid {
+    display: block;
+    gap: 20px;
+    justify-content: center;
+}
+
+.article {
+    padding: 20px;
+    text-align: center;
+	display: flex;
+	position: relative;
+}
+
+.article img {
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+
+}
+
+.article-meta {
+    font-size: 12px;
+    color: #999;
+    margin: 0px 0;
+	position: absolute;
+	z-index: 1;
+	bottom: 25px;
+	left: 25px;
+	color: #ffffff;
+	font-size: 18px;
+}
+
+.article-button {
+	position: absolute;
+    margin: 10px 10px;
+    width: 50px;
+    height: 30px;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: rgb(206, 206, 206);
+    z-index: 1;
+	border: 1px solid white;
+}
+
+.article-meta-right {
+    font-size: 12px;
+    color: #999;
+    margin: 0px 0;
+	position: absolute;
+	z-index: 1;
+	bottom: 25px;
+	right: 25px;
+	color: #ffffff;
+	font-size: 18px;
+}
+
+.article-button-right {
+	position: absolute;
+    margin: 10px 10px;
+    width: 50px;
+    height: 30px;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: rgb(206, 206, 206);
+    z-index: 1;
+	right: 25px;
+	border: 1px solid white;
+}
+
+.article-text {
+    margin: 40px 10px;
+}
+
+.newsletter {
+    background-color: #fff;
+    color: #222;
+    padding: 40px;
+    text-align: center;
+	display: flex;
+	vertical-align: middle;
+	margin: 10px 10px;
+	width: 100%;
+}
+
+.newsletter p{
+    font-size: 30px;
+    padding-right: 10px;
+}
+
+.newsletter form {
+	display: flex;
+}
+
+.newsletter input {
+    padding: 10px;
+    width: 100%;
+    border: none;
+    border: 1px solid #222;
+    margin-right: 10px;
+}
+
+.newsletter .btn-primary {
+    padding: 10px 20px;
+    background-color: #222;
+    color: white;
+    border: none;
+    border-radius: 1px;
+    cursor: pointer;
+}
+
+/* Footer styling */
+footer {
+    background-color: #fff;
+    color: #000;
+    padding: 40px 0px;
+    text-align: center;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-around;
+    gap: 20px;
+}
+
+.footer-col {
+    max-width: 200px;
+}
+
+.footer-col h3 {
+    margin-bottom: 10px;
+    font-size: 18px;
+}
+
+.footer-col p {
+    color: #b2b2b2
+}
+
+.footer-col .btn-primary {
+    padding: 5px 5px;
+    background-color: #222;
+    color: white;
+    border: none;
+    border-radius: 1px;
+    cursor: pointer;
+	margin: 5px auto;
+}
