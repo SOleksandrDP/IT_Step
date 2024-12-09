@@ -1,0 +1,76 @@
+table {
+      border-collapse: collapse;
+      margin: 0px auto;
+      border: 1px solid #ddd;
+    }
+
+    td, th {
+      border: 1px solid #ddd;
+      padding: 1px;
+      text-align: center;
+	  min-width: 100px;  /* Мінімальна ширина */
+      min-height: 50px; /* Мінімальна висота */
+    }
+
+	td[contenteditable="true"] {
+      background-color: #fff;
+	  cursor: pointer;
+	  overflow: auto; /* Дозволяє прокручувати вміст */
+      min-width: 100px;  /* Мінімальна ширина */
+      min-height:15px; /* Мінімальна висота */
+    }
+
+    td.selected_cell {
+      background-color: #94ffa1;
+	  resize: both;   /* Додає можливість змінювати розмір */
+    }
+	
+	td.involved_cell {
+      background-color: #f0fe96;
+	  resize: both;   /* Додає можливість змінювати розмір */
+    }
+	
+	td.fail_cell {
+      background-color: #f00;
+	  resize: both;   /* Додає можливість змінювати розмір */
+    }
+
+    th {
+      background-color: #f2f2f2;
+	  min-width: 30px;  /* Мінімальна ширина */
+    }
+
+    input {
+      width: 100%;
+      border: none;
+      padding: 8px;
+      box-sizing: border-box;
+    }
+	
+	.wrapper {
+		position: relative;
+		min-height: 100%;
+	}
+	.header {
+		position: sticky;
+		top: 0px;
+		background-color: #6f6c6c;
+	}
+	.main {
+		padding-bottom: 0px;
+	}
+	.footer-container {
+		position: sticky;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		top: 0px;
+		background-color: #6f6c6c;
+	}
+	.SheetStyle {
+      background-color: #fff;
+	  cursor: pointer;
+	  overflow: auto; /* Дозволяє прокручувати вміст */
+      min-width: 120px;  /* Мінімальна ширина */
+      min-height: 20px; /* Мінімальна висота */
+    }
