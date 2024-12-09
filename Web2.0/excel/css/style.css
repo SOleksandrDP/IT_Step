@@ -27,12 +27,10 @@ table {
 	
 	td.involved_cell {
       background-color: #f0fe96;
-	  resize: both;   /* Додає можливість змінювати розмір */
     }
 	
 	td.fail_cell {
       background-color: #f00;
-	  resize: both;   /* Додає можливість змінювати розмір */
     }
 
     th {

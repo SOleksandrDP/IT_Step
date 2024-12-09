@@ -1,5 +1,4 @@
 let selected_cell = null;
-const MathematicalCalculations = ["SUM", "AVERAGE", "COUNT", "MAX", "MIN"];
 const HeadersTabel = Array.from({ length: 26 }, (_, i) => String.fromCharCode(65 + i));
 
 const Sheets = new Object();
@@ -15,33 +14,11 @@ function Td_Events_Logic(e) {
 		break;
 		case "focusout":
 			console.log("focusout");
-			//e.target.contentEditable = false;
-			e.target.classList.remove("selected_cell");
-			const tdFocusOutObj = getTargetObj(e.target.name);
-			if(tdFocusOutObj)
-			{
-				tdFocusOutObj.original_text = e.target.textContent;
-				e.target.textContent = GetParsText(tdFocusOutObj.original_text);
-				parseFormula(HeadersTabel, tdFocusOutObj.original_text);
-			}
+			UpdateDeActiveCellProcessing(e.target.name);
 		break;
 		case "click":
 			console.log("click");
-			//e.target.contentEditable = true;
-			e.target.classList.add("selected_cell");
-			const tdClickObj = getTargetObj(e.target.name);
-			
-			if(selected_cell !== null && selected_cell !== tdClickObj)
-			{
-				//selectedCells.td.contentEditable = false;
-				selected_cell.td.classList.remove("selected_cell");
-			}
-			
-			if(tdClickObj)
-			{
-				selected_cell = tdClickObj;
-				e.target.textContent = tdClickObj.original_text;
-			}
+			UpdateActiveCellProcessing(e.target.name);
 		break;
 	}
 }
@@ -60,28 +37,54 @@ function ClearFocusLastCell()
 	}
 }
 
-function UpdateCellProcessing(ActiveCellName)
+function UpdateDeActiveCellProcessing(DeActiveCellName)
+{
+	const td_obj = getTargetObj(DeActiveCellName);
+	
+	if(!td_obj)
+	{
+		console.log("Cell not found");
+		return;
+	}
+	
+	if(selected_cell)
+	{
+		selected_cell.td.classList.remove("selected_cell");
+	}
+	
+	td_obj.original_text = td_obj.td.textContent;
+	let oparationData = parseFormula(HeadersTabel, td_obj.original_text);
+	
+	console.log("oparationData:");
+	console.log(oparationData);
+	
+	td_obj.displayed_text = oparationData.value; //TODO
+	
+	td_obj.td.textContent = td_obj.displayed_text;
+	
+	selected_cell = null;
+}
+
+function UpdateActiveCellProcessing(ActiveCellName)
 {
 	const td_obj = getTargetObj(ActiveCellName);
 	
+	if(!td_obj)
+	{
+		console.log("Cell not found");
+		return;
+	}
+	
 	if(selected_cell == td_obj)
 	{
-		console.log("UpdateCellProcessing - selected_cell == td_obj");
+		console.log("You cannot select the same cell twice.");
 		return;
 	}
 	
 	selected_cell = td_obj;
 	
-	if(selected_cell.displayed_text != selected_cell.td.textContent)
-	{
-		selected_cell.original_text = selected_cell.td.textContent;
-	}
-	else 
-	{
-		
-	}
-	
-	selected_cell.td.textContent = selected_cell.displayed_text;
+	selected_cell.td.textContent = selected_cell.original_text;
+	selected_cell.td.classList.add("selected_cell");
 }
 	
 function AddSheet() {
