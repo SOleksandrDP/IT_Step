@@ -154,14 +154,20 @@ function parseFormula(inHeadersTabel, inFormula)
 	if (!matches || matches.length <= 1)
 	{
 		console.log("matches.length - Якщо не вдалося розпарсити");
-		return null; // Якщо не вдалося розпарсити
+		return {
+			operationType: "",
+			value: isErrorFormula
+		}; // Якщо не вдалося розпарсити
 	}
 	
 	const ids = matches[2].split(":");
 	if (ids.length <= 1)
 	{
 		console.log("matches[2] - Якщо не вдалося розпарсити");
-		return null; // Якщо не вдалося розпарсити
+		return {
+			operationType: "",
+			value: isErrorFormula
+		}; // Якщо не вдалося розпарсити
 	}
 	
 	const funcName = searchOperation(matches[1]);  // Назва функції (SUM)
@@ -190,7 +196,8 @@ function valizationSingleNumFormula(inFormula)
     } else {
         return {
             isValid: false,
-            error: "Одиночне число має неправильний формат"
+            error: "Одиночне число має неправильний формат",
+			value: isErrorFormula
         };
     }
 }
@@ -202,7 +209,7 @@ function parseAndEvaluateComplexFormula(inFormula)
         return {
             isValid: false,
             error: "Формула містить недозволені символи",
-            result: null
+            result: isErrorFormula
         };
     }
 
@@ -211,14 +218,14 @@ function parseAndEvaluateComplexFormula(inFormula)
         const result = eval(inFormula); // Обчислення з врахуванням пріоритетів операторів
         return {
             isValid: true,
-            error: null,
+            error: isErrorFormula,
             result
         };
     } catch (e) {
         return {
             isValid: false,
             error: "Помилка обчислення формули",
-            result: null
+            result: isErrorFormula
         };
     }
 }

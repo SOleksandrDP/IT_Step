@@ -50,6 +50,7 @@ function UpdateDeActiveCellProcessing(DeActiveCellName)
 	if(selected_cell)
 	{
 		selected_cell.td.classList.remove("selected_cell");
+		selected_cell.td.classList.remove("fail_cell");
 	}
 	
 	td_obj.original_text = td_obj.td.textContent;
@@ -61,6 +62,11 @@ function UpdateDeActiveCellProcessing(DeActiveCellName)
 	td_obj.displayed_text = oparationData.value; //TODO
 	
 	td_obj.td.textContent = td_obj.displayed_text;
+	
+	if(oparationData.value == isErrorFormula)
+	{
+		td_obj.td.classList.add("fail_cell");
+	}
 	
 	selected_cell = null;
 }
@@ -82,6 +88,11 @@ function UpdateActiveCellProcessing(ActiveCellName)
 	}
 	
 	selected_cell = td_obj;
+	
+	if(selected_cell.td.classList.contains("fail_cell"))
+	{
+		selected_cell.td.classList.remove("fail_cell");
+	}
 	
 	selected_cell.td.textContent = selected_cell.original_text;
 	selected_cell.td.classList.add("selected_cell");
