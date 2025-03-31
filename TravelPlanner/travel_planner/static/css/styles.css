@@ -1,0 +1,1172 @@
+/* Загальні стилі */
+* {
+  box-sizing: border-box; /* Включає відступи та рамки в розмір елемента */
+  margin: 0; /* Видаляє стандартні зовнішні відступи */
+  padding: 0; /* Видаляє стандартні внутрішні відступи */
+}
+
+/* Змінні кольорів для узгодженого оформлення */
+:root {
+  --primary: #ff7e1d; /* Помаранчевий - основний колір бренду */
+  --primary-light: #ffa64d; /* Світло-помаранчевий для градієнтів та станів наведення */
+  --secondary: #1e88e5; /* Синій - другорядний колір бренду */
+  --secondary-light: #64b5f6; /* Світло-синій для градієнтів та станів наведення */
+  --accent: #00c853; /* Зелений - акцентний колір */
+  --accent-light: #69f0ae; /* Світло-зелений для градієнтів та станів наведення */
+  --dark: #263238; /* Темно-сірий/синій для тексту */
+  --light: #ffffff; /* Білий для фонів та світлого тексту */
+  --background: #f5f7fa; /* Світло-сірий для фону сторінки */
+  --yellow: #ffd600; /* Жовтий - колір українського прапора */
+  --blue: #0057b8; /* Синій - колір українського прапора */
+}
+
+/* Базові стилі для тіла сторінки */
+body {
+  font-family: "Montserrat", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; /* Набір шрифтів */
+  line-height: 1.6; /* Висота рядка для кращої читабельності */
+  color: var(--dark); /* Колір тексту за замовчуванням */
+  background-color: var(--background); /* Колір фону за замовчуванням */
+}
+
+/* Службовий клас для приховування елементів */
+.hidden {
+  display: none !important; /* Повністю приховує елемент */
+}
+
+/* Стилі сторінки привітання - повноекранна цільова сторінка */
+.welcome-page {
+  height: 100vh; /* Повна висота вікна перегляду */
+  position: relative; /* Для абсолютного позиціонування дочірніх елементів */
+  overflow: hidden; /* Приховує вміст, що виходить за межі */
+}
+
+/* Контейнер для фонового слайдера */
+.background-slider {
+  position: absolute; /* Абсолютне позиціонування в межах welcome-page */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1; /* Порядок шарів */
+}
+
+/* Окремі зображення фонового слайдера */
+.background-slider img {
+  position: absolute; /* Абсолютне позиціонування в межах слайдера */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Покриває всю область без спотворення */
+  opacity: 0; /* Приховано за замовчуванням */
+  transition: opacity 1.5s ease-in-out; /* Плавний перехід між слайдами */
+}
+
+/* Стиль активного слайда */
+.background-slider img.active {
+  opacity: 1; /* Видимий, коли активний */
+}
+
+/* Контейнер для навігаційних точок слайдера */
+.slider-controls {
+  position: absolute; /* Абсолютне позиціонування в межах welcome-page */
+  bottom: 30px; /* Відстань від низу */
+  left: 50%; /* Центрування по горизонталі */
+  transform: translateX(-50%); /* Коригування центрування */
+  display: flex; /* Горизонтальне розташування */
+  gap: 10px; /* Відстань між точками */
+  z-index: 3; /* Вище інших елементів */
+}
+
+/* Окрема навігаційна точка слайдера */
+.slider-dot {
+  width: 12px; /* Розмір точки */
+  height: 12px;
+  border-radius: 50%; /* Кругла форма */
+  background-color: rgba(255, 255, 255, 0.5); /* Напівпрозорий білий */
+  cursor: pointer; /* Вказує на можливість клікнути */
+  transition: background-color 0.3s; /* Плавний перехід кольору */
+}
+
+/* Стиль активної точки */
+.slider-dot.active {
+  background-color: var(--light); /* Суцільний білий, коли активний */
+  transform: scale(1.2); /* Трохи більший, коли активний */
+}
+
+/* Контейнер вмісту для сторінки привітання */
+.content {
+  position: relative; /* Для роботи z-index */
+  z-index: 2; /* Вище фону, нижче елементів керування */
+  height: 100%; /* Повна висота */
+  display: flex; /* Для центрування вмісту */
+  flex-direction: column; /* Вертикальне розташування дочірніх елементів */
+  justify-content: center; /* Центрування по вертикалі */
+  align-items: center; /* Центрування по горизонталі */
+  text-align: center; /* Центрування тексту */
+  padding: 2rem; /* Відступи навколо вмісту */
+  color: var(--light); /* Білий текст */
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.7)); /* Градієнтний фон для кращої видимості тексту */
+}
+
+/* Блок вмісту привітання */
+.welcome-content {
+  max-width: 800px; /* Максимальна ширина */
+  padding: 2rem; /* Відступи навколо вмісту */
+  border-radius: 20px; /* Заокруглені кути */
+  background-color: rgba(0, 0, 0, 0.5); /* Напівпрозорий чорний фон */
+  backdrop-filter: blur(10px); /* Ефект розмиття для сучасних браузерів */
+  animation: fadeIn 1s ease-in-out; /* Анімація появи */
+}
+
+/* Ключові кадри анімації появи */
+@keyframes fadeIn {
+  from {
+    opacity: 0; /* Початок прозорий */
+    transform: translateY(20px); /* Початок трохи нижче кінцевої позиції */
+  }
+  to {
+    opacity: 1; /* Кінець повністю видимий */
+    transform: translateY(0); /* Кінець у кінцевій позиції */
+  }
+}
+
+/* Заголовок привітання */
+.welcome-content h1 {
+  font-size: 3.5rem; /* Великий розмір шрифту */
+  font-weight: 800; /* Надзвичайно жирний */
+  margin-bottom: 1rem; /* Відступ знизу */
+  color: var(--light); /* Білий текст */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Тінь для кращої читабельності */
+}
+
+/* Абзац привітання */
+.welcome-content p {
+  font-size: 1.5rem; /* Середній розмір шрифту */
+  margin-bottom: 2rem; /* Відступ знизу */
+  color: var(--light); /* Білий текст */
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* Тінь для кращої читабельності */
+}
+
+/* Головна кнопка заклику до дії */
+.btn-go {
+  display: inline-block; /* Інлайн-блок для правильного розміру */
+  padding: 1rem 3rem; /* Вертикальні та горизонтальні відступи */
+  background: linear-gradient(135deg, var(--primary), var(--primary-light)); /* Помаранчевий градієнт */
+  color: white; /* Білий текст */
+  text-decoration: none; /* Видалення підкреслення */
+  border-radius: 50px; /* Заокруглені кути */
+  font-size: 1.2rem; /* Розмір шрифту */
+  font-weight: 600; /* Напівжирний */
+  text-transform: uppercase; /* Всі великі літери */
+  letter-spacing: 1px; /* Відстань між літерами */
+  transition: all 0.3s; /* Плавний перехід для ефектів наведення */
+  box-shadow: 0 4px 15px rgba(255, 126, 29, 0.4); /* Тінь для глибини */
+  border: none; /* Без рамки */
+  cursor: pointer; /* Курсор-вказівник */
+}
+
+/* Стан кнопки при наведенні */
+.btn-go:hover {
+  background: linear-gradient(135deg, var(--primary-light), var(--primary)); /* Зворотний градієнт */
+  transform: translateY(-3px); /* Невеликий підйом */
+  box-shadow: 0 6px 20px rgba(255, 126, 29, 0.6); /* Більша тінь */
+}
+
+/* Стан кнопки при натисканні */
+.btn-go:active {
+  transform: translateY(1px); /* Невеликий спуск при натисканні */
+}
+
+/* Стилі заголовка - заголовок сайту */
+.site-header {
+  background-color: var(--light); /* Білий фон */
+  padding: 1rem 2rem; /* Відступи */
+  display: flex; /* Горизонтальне розташування */
+  justify-content: space-between; /* Рівномірне розташування елементів */
+  align-items: center; /* Центрування елементів по вертикалі */
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1); /* Тінь для глибини */
+  position: sticky; /* Прикріплення до верху при прокрутці */
+  top: 0; /* Прикріплення до верху */
+  z-index: 100; /* Вище іншого вмісту */
+}
+
+/* Кнопка "назад" у заголовку */
+.back-btn {
+  font-size: 1.5rem; /* Великий розмір шрифту */
+  color: var(--primary); /* Помаранчевий колір */
+  text-decoration: none; /* Видалення підкреслення */
+  display: flex; /* Для вирівнювання */
+  align-items: center; /* Центрування по вертикалі */
+  transition: transform 0.3s; /* Плавний перехід */
+}
+
+/* Ефект наведення на кнопку "назад" */
+.back-btn:hover {
+  transform: translateX(-5px); /* Невеликий зсув вліво */
+}
+
+/* Логотип у заголовку */
+.logo {
+  font-size: 1.8rem; /* Великий розмір шрифту */
+  font-weight: 800; /* Надзвичайно жирний */
+  color: var(--primary); /* Помаранчевий колір */
+  text-decoration: none; /* Видалення підкреслення */
+  display: flex; /* Для вирівнювання */
+  align-items: center; /* Центрування по вертикалі */
+  gap: 0.5rem; /* Відстань між іконкою та текстом */
+}
+
+/* Іконка логотипу */
+.logo::before {
+  content: "✈️"; /* Емодзі літака */
+  font-size: 1.5rem; /* Розмір емодзі */
+}
+
+/* Кнопки з іконками в заголовку */
+.icon-btn {
+  background: none; /* Без фону */
+  border: none; /* Без рамки */
+  font-size: 1.5rem; /* Великий розмір шрифту */
+  cursor: pointer; /* Курсор-вказівник */
+  margin-left: 1rem; /* Відступ зліва */
+  color: var(--secondary); /* Синій колір */
+  transition: color 0.3s, transform 0.3s; /* Плавні переходи */
+}
+
+/* Ефект наведення на кнопку з іконкою */
+.icon-btn:hover {
+  color: var(--primary); /* Помаранчевий колір при наведенні */
+  transform: scale(1.1); /* Трохи більший при наведенні */
+}
+
+/* Візуальний індикатор стану входу */
+.icon-btn.logged-in {
+  color: var(--accent); /* Зелений колір при вході в систему */
+  position: relative; /* Для позиціонування індикаторної точки */
+}
+
+/* Індикаторна точка входу */
+.icon-btn.logged-in::after {
+  content: ""; /* Порожній вміст */
+  position: absolute; /* Абсолютне позиціонування */
+  top: 0; /* Позиція вгорі */
+  right: 0; /* Позиція справа */
+  width: 8px; /* Розмір точки */
+  height: 8px;
+  background-color: var(--accent); /* Зелена точка */
+  border-radius: 50%; /* Кругла форма */
+}
+
+/* Стилі сторінки напрямків */
+.page-title {
+  text-align: center; /* Центрування тексту */
+  margin: 2rem 0; /* Вертикальні відступи */
+  color: var(--primary); /* Помаранчевий колір */
+  font-size: 2.5rem; /* Великий розмір шрифту */
+  font-weight: 800; /* Надзвичайно жирний */
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); /* Легка тінь */
+}
+
+/* Панель пошуку та фільтрації */
+.search-filter-panel {
+  background-color: var(--light); /* Білий фон */
+  padding: 1.5rem; /* Відступи */
+  margin: 0 1rem 2rem; /* Відступи */
+  border-radius: 15px; /* Заокруглені кути */
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1); /* Тінь для глибини */
+}
+
+/* Розташування форми пошуку */
+.search-filter-panel form {
+  display: flex; /* Горизонтальне розташування */
+  flex-wrap: wrap; /* Дозволяє перенесення */
+  gap: 1rem; /* Відстань між елементами */
+}
+
+/* Поля введення тексту */
+.search-filter-panel input[type="text"] {
+  flex: 1; /* Розтягується, щоб заповнити простір */
+  padding: 0.8rem 1rem; /* Відступи */
+  border: 2px solid #e0e0e0; /* Світло-сіра рамка */
+  border-radius: 8px; /* Заокруглені кути */
+  font-size: 1rem; /* Розмір шрифту */
+  transition: border-color 0.3s; /* Плавний перехід */
+}
+
+/* Стан фокусу поля введення тексту */
+.search-filter-panel input[type="text"]:focus {
+  border-color: var(--secondary); /* Синя рамка при фокусі */
+  outline: none; /* Видалення стандартного контуру фокусу */
+}
+
+/* Контейнер діапазону цін */
+.search-filter-panel .price-range {
+  width: 100%; /* Повна ширина */
+  margin: 1rem 0; /* Вертикальні відступи */
+}
+
+/* Стилізація повзунка діапазону */
+.search-filter-panel input[type="range"] {
+  width: 100%; /* Повна ширина */
+  height: 8px; /* Висота доріжки */
+  border-radius: 4px; /* Заокруглені кути */
+  background: transparent; /* Прозорий фон */
+  outline: none; /* Видалення контуру */
+  -webkit-appearance: none; /* Видалення стандартного стилю */
+  appearance: none; /* Видалення стандартного стилю */
+}
+
+/* Стилізація доріжки повзунка для браузерів WebKit */
+.search-filter-panel input[type="range"]::-webkit-slider-runnable-track {
+  width: 100%; /* Повна ширина */
+  height: 8px; /* Висота доріжки */
+  background: #e0e0e0; /* Світло-сірий фон */
+  border-radius: 4px; /* Заокруглені кути */
+  cursor: pointer; /* Курсор-вказівник */
+}
+
+/* Стилізація доріжки повзунка для Firefox */
+.search-filter-panel input[type="range"]::-moz-range-track {
+  width: 100%; /* Повна ширина */
+  height: 8px; /* Висота доріжки */
+  background: #e0e0e0; /* Світло-сірий фон */
+  border-radius: 4px; /* Заокруглені кути */
+  cursor: pointer; /* Курсор-вказівник */
+}
+
+/* Стилізація бігунка повзунка для браузерів WebKit */
+.search-filter-panel input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; /* Видалення стандартного стилю */
+  appearance: none; /* Видалення стандартного стилю */
+  width: 20px; /* Ширина бігунка */
+  height: 20px; /* Висота бігунка */
+  background: var(--primary); /* Помаранчевий колір */
+  border-radius: 50%; /* Кругла форма */
+  cursor: pointer; /* Курсор-вказівник */
+  margin-top: -6px; /* Коригування вертикальної позиції */
+}
+
+/* Стилізація бігунка повзунка для Firefox */
+.search-filter-panel input[type="range"]::-moz-range-thumb {
+  width: 20px; /* Ширина бігунка */
+  height: 20px; /* Висота бігунка */
+  background: var(--primary); /* Помаранчевий колір */
+  border-radius: 50%; /* Кругла форма */
+  cursor: pointer; /* Курсор-вказівник */
+  border: none; /* Без рамки */
+}
+
+/* Кнопка панелі пошуку */
+.search-filter-panel button {
+  padding: 0.8rem 1.5rem; /* Відступи */
+  background: linear-gradient(135deg, var(--secondary), var(--secondary-light)); /* Синій градієнт */
+  color: white; /* Білий текст */
+  border: none; /* Без рамки */
+  border-radius: 8px; /* Заокруглені кути */
+  cursor: pointer; /* Курсор-вказівник */
+  font-weight: 600; /* Напівжирний */
+  transition: all 0.3s; /* Плавний перехід */
+  box-shadow: 0 4px 10px rgba(30, 136, 229, 0.3); /* Тінь для глибини */
+}
+
+/* Стан кнопки панелі пошуку при наведенні */
+.search-filter-panel button:hover {
+  background: linear-gradient(135deg, var(--secondary-light), var(--secondary)); /* Зворотний градієнт */
+  transform: translateY(-2px); /* Невеликий підйом */
+  box-shadow: 0 6px 15px rgba(30, 136, 229, 0.4); /* Більша тінь */
+}
+
+/* Розташування сітки карток напрямків */
+.destinations-grid {
+  display: grid; /* Сіткове розташування */
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Адаптивні стовпці */
+  gap: 2rem; /* Відстань між картками */
+  padding: 1rem 2rem 3rem; /* Відступи навколо сітки */
+}
+
+/* Контейнер окремої картки напрямку */
+.destination-card {
+  background-color: var(--light);
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+}
+
+.destination-card img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  transition: transform 0.5s;
+}
+
+.destination-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+}
+
+.destination-card:hover img {
+  transform: scale(1.05);
+}
+
+.destination-card .destination-content {
+  padding: 1.5rem;
+  text-align: center;
+  background-color: var(--light);
+}
+
+.destination-card .destination-content h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 0.5rem;
+}
+
+.destination-card .destination-content p {
+  display: none; /* Hide the description text */
+}
+
+/* Стилі доступних поїздок */
+#availableTrips {
+  padding: 2rem; /* Відступи */
+}
+
+/* Заголовок розділу поїздок */
+.trip-section-title {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin: 1.5rem 0 1rem;
+  color: var(--dark);
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #e0e0e0;
+}
+
+/* Стилізація картки поїздки */
+.trip-card {
+  background-color: var(--light); /* Білий фон */
+  border-radius: 15px; /* Заокруглені кути */
+  padding: 1.5rem; /* Відступи */
+  margin-bottom: 1.5rem; /* Відступ знизу */
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1); /* Тінь для глибини */
+  transition: transform 0.3s, box-shadow 0.3s; /* Плавні переходи */
+  border-left: 5px solid var(--secondary); /* Синя ліва рамка */
+}
+
+/* Ефект наведення на картку поїздки */
+.trip-card:hover {
+  transform: translateY(-5px); /* Підйом при наведенні */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15); /* Більша тінь при наведенні */
+}
+
+/* Заголовок картки поїздки */
+.trip-card h3,
+.trip-card h4 {
+  font-size: 1.5rem; /* Великий розмір шрифту */
+  font-weight: 700; /* Жирний */
+  margin-bottom: 1rem; /* Відступ знизу */
+  color: var(--secondary); /* Синій колір */
+  display: flex; /* Для вирівнювання іконки */
+  align-items: center; /* Центрування по вертикалі */
+}
+
+/* Іконка заголовка картки поїздки */
+.trip-card h3::before,
+.trip-card h4::before {
+  content: "🚗"; /* Емодзі автомобіля */
+  margin-right: 0.5rem; /* Відступ справа */
+}
+
+/* Абзац картки поїздки */
+.trip-card p {
+  margin-bottom: 0.5rem; /* Відступ знизу */
+  display: flex; /* Для вирівнювання іконки */
+  align-items: center; /* Центрування по вертикалі */
+}
+
+/* Іконки абзаців картки поїздки */
+.trip-card p::before {
+  margin-right: 0.5rem; /* Відступ справа */
+  font-size: 1.1rem; /* Розмір іконки */
+}
+
+/* Конкретні іконки для різних абзаців */
+.trip-card p:nth-of-type(1)::before {
+  content: "📅"; /* Емодзі календаря */
+}
+
+.trip-card p:nth-of-type(2)::before {
+  content: "💰"; /* Емодзі мішка з грошима */
+}
+
+.trip-card p:nth-of-type(3)::before {
+  content: "👤"; /* Емодзі людини */
+}
+
+.trip-card p:nth-of-type(4)::before {
+  content: "💺"; /* Емодзі сидіння */
+}
+
+/* Стилі для різних типів поїздок */
+.trip-created {
+  border-left: 5px solid var(--accent); /* Зелена ліва рамка для створених поїздок */
+}
+
+.trip-booked {
+  border-left: 5px solid var(--secondary); /* Синя ліва рамка для заброньованих поїздок */
+}
+
+/* Відступ між розділами поїздок */
+.trips-list {
+  margin-bottom: 2rem;
+}
+
+/* Перший заголовок розділу без верхнього відступу */
+.trip-section-title:first-of-type {
+  margin-top: 0;
+}
+
+/* Статус бронювання */
+.status-confirmed {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.status-pending {
+  color: var(--primary);
+  font-weight: 600;
+}
+
+/* Кнопка картки поїздки */
+.trip-card .btn {
+  display: inline-block; /* Інлайн-блок для правильного розміру */
+  padding: 0.8rem 1.5rem; /* Відступи */
+  background: linear-gradient(135deg, var(--secondary), var(--secondary-light)); /* Синій градієнт */
+  color: white; /* Білий текст */
+  text-decoration: none; /* Видалення підкреслення */
+  border-radius: 8px; /* Заокруглені кути */
+  margin-top: 1rem; /* Відступ зверху */
+  font-weight: 600; /* Напівжирний */
+  transition: all 0.3s; /* Плавний перехід */
+  box-shadow: 0 4px 10px rgba(30, 136, 229, 0.3); /* Тінь для глибини */
+}
+
+/* Ефект наведення на кнопку картки поїздки */
+.trip-card .btn:hover {
+  background: linear-gradient(135deg, var(--secondary-light), var(--secondary)); /* Зворотний градієнт */
+  transform: translateY(-2px); /* Невеликий підйом */
+  box-shadow: 0 6px 15px rgba(30, 136, 229, 0.4); /* Більша тінь */
+}
+
+/* Стилі сторінки деталей маршруту */
+.route-summary {
+  background-color: var(--light); /* Білий фон */
+  padding: 2rem; /* Відступи */
+  margin: 2rem; /* Відступи */
+  border-radius: 15px; /* Заокруглені кути */
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1); /* Тінь для глибини */
+}
+
+/* Заголовок зведення маршруту */
+.route-summary h2 {
+  font-size: 2rem; /* Великий розмір шрифту */
+  font-weight: 700; /* Жирний */
+  margin-bottom: 1rem; /* Відступ знизу */
+  color: var(--primary); /* Помаранчевий колір */
+  display: flex; /* Для вирівнювання іконки */
+  align-items: center; /* Центрування по вертикалі */
+}
+
+/* Іконка заголовка зведення маршруту */
+.route-summary h2::before {
+  content: "🚗"; /* Емодзі автомобіля */
+  margin-right: 0.5rem; /* Відступ справа */
+}
+
+/* Абзац зведення маршруту */
+.route-summary p {
+  margin-bottom: 0.8rem; /* Відступ знизу */
+  font-size: 1.1rem; /* Розмір шрифту */
+  display: flex; /* Для вирівнювання іконки */
+  align-items: center; /* Центрування по вертикалі */
+}
+
+/* Іконки абзаців зведення маршруту */
+.route-summary p::before {
+  margin-right: 0.5rem; /* Відступ справа */
+  font-size: 1.2rem; /* Розмір іконки */
+}
+
+/* Конкретні іконки для різних абзаців */
+.route-summary p:nth-of-type(1)::before {
+  content: "📅"; /* Емодзі календаря */
+}
+
+.route-summary p:nth-of-type(2)::before {
+  content: "💰"; /* Емодзі мішка з грошима */
+}
+
+.route-summary p:nth-of-type(3)::before {
+  content: "💺"; /* Емодзі сидіння */
+}
+
+/* Розділ інформації про водія */
+.driver-info {
+  background-color: var(--light); /* Білий фон */
+  padding: 2rem; /* Відступи */
+  margin: 0 2rem 2rem; /* Відступи */
+  border-radius: 15px; /* Заокруглені кути */
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1); /* Тінь для глибини */
+}
+
+/* Заголовок інформації про водія */
+.driver-info h3 {
+  font-size: 1.5rem; /* Великий розмір шрифту */
+  font-weight: 700; /* Жирний */
+  margin-bottom: 1rem; /* Відступ знизу */
+  color: var(--secondary); /* Синій колір */
+  display: flex; /* Для вирівнювання іконки */
+  align-items: center; /* Центрування по вертикалі */
+}
+
+/* Іконка заголовка інформації про водія */
+.driver-info h3::before {
+  content: "👤"; /* Емодзі людини */
+  margin-right: 0.5rem; /* Відступ справа */
+}
+
+/* Абзац інформації про водія */
+.driver-info p {
+  margin-bottom: 1rem; /* Відступ знизу */
+  font-size: 1.1rem; /* Розмір шрифту */
+  display: flex; /* Для вирівнювання іконки */
+  align-items: center; /* Центрування по вертикалі */
+}
+
+/* Іконка абзацу інформації про водія */
+.driver-info p::before {
+  content: "⭐"; /* Емодзі зірки */
+  margin-right: 0.5rem; /* Відступ справа */
+}
+
+/* Контейнер часової шкали маршруту */
+.route-timeline {
+  position: relative; /* Для позиціонування лінії */
+  padding-left: 3rem; /* Місце для лінії та точок */
+  margin: 0 2rem 2rem; /* Відступи */
+}
+
+/* Вертикальна лінія часової шкали маршруту */
+.route-timeline::before {
+  content: ""; /* Порожній вміст */
+  position: absolute; /* Абсолютне позиціонування */
+  left: 12px; /* Позиція зліва */
+  top: 0; /* Початок вгорі */
+  bottom: 0; /* Кінець внизу */
+  width: 4px; /* Ширина лінії */
+  background: linear-gradient(to bottom, var(--primary), var(--secondary)); /* Градієнтна лінія */
+  border-radius: 2px; /* Трохи заокруглена лінія */
+}
+
+/* Контейнер зупинки маршруту */
+.route-stop {
+  position: relative; /* Для позиціонування точки */
+  margin-bottom: 2rem; /* Відступ знизу */
+  background-color: var(--light); /* Білий фон */
+  padding: 1.5rem; /* Відступи */
+  border-radius: 15px; /* Заокруглені кути */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* Тінь для глибини */
+}
+
+/* Точка часової шкали зупинки маршруту */
+.route-stop::before {
+  content: ""; /* Порожній вміст */
+  position: absolute; /* Абсолютне позиціонування */
+  left: -2.5rem; /* Позиція зліва */
+  top: 1.5rem; /* Позиція зверху */
+  width: 24px; /* Розмір точки */
+  height: 24px;
+  border-radius: 50%; /* Кругла форма */
+  background-color: var(--light); /* Білий центр */
+  border: 4px solid var(--primary); /* Помаранчева рамка */
+  z-index: 1; /* Вище лінії часової шкали */
+}
+
+/* Колір точки останньої зупинки маршруту */
+.route-stop:last-child::before {
+  border-color: var(--secondary); /* Синя рамка для останньої зупинки */
+}
+
+/* Заголовок зупинки маршруту */
+.route-stop h4 {
+  font-size: 1.3rem; /* Розмір шрифту */
+  font-weight: 700; /* Жирний */
+  margin-bottom: 0.5rem; /* Відступ знизу */
+  color: var(--primary); /* Помаранчевий колір */
+}
+
+/* Колір заголовка останньої зупинки маршруту */
+.route-stop:last-child h4 {
+  color: var(--secondary); /* Синій колір для останньої зупинки */
+}
+
+/* Абзац зупинки маршруту */
+.route-stop p {
+  color: var(--dark); /* Темний колір тексту */
+}
+
+/* Стилі сторінки профілю */
+#profileContent {
+  max-width: 800px; /* Максимальна ширина */
+  margin: 2rem auto; /* Центрування по горизонталі з відступом */
+  padding: 0 1rem; /* Горизонтальні відступи */
+}
+
+/* Контейнер навігації по вкладках */
+.tabs {
+  display: flex; /* Горизонтальне розташування */
+  margin-bottom: 1.5rem; /* Відступ знизу */
+  background-color: var(--light); /* Білий фон */
+  border-radius: 10px; /* Заокруглені кути */
+  overflow: hidden; /* Приховування переповнення */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* Тінь для глибини */
+}
+
+/* Окрема кнопка вкладки */
+.tab {
+  flex: 1; /* Рівна ширина */
+  padding: 1rem; /* Відступи */
+  background-color: var(--light); /* Білий фон */
+  border: none; /* Без рамки */
+  cursor: pointer; /* Курсор-вказівник */
+  font-size: 1.1rem; /* Розмір шрифту */
+  font-weight: 600; /* Напівжирний */
+  transition: all 0.3s; /* Плавний перехід */
+  color: var(--dark); /* Темний текст */
+}
+
+/* Стилізація активної вкладки */
+.tab.active {
+  background: linear-gradient(135deg, var(--primary), var(--primary-light)); /* Помаранчевий градієнт */
+  color: var(--light); /* Білий текст */
+}
+
+/* Контейнер вмісту вкладки */
+.tab-content {
+  display: none; /* Приховано за замовчуванням */
+  background-color: var(--light); /* Білий фон */
+  padding: 2rem; /* Відступи */
+  border-radius: 15px; /* Заокруглені кути */
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1); /* Тінь для глибини */
+}
+
+/* Активний вміст вкладки */
+.tab-content.active {
+  display: block; /* Видимий, коли активний */
+  animation: fadeIn 0.5s ease-in-out; /* Анімація появи */
+}
+
+/* Стилізація полів введення форми */
+form input,
+form textarea {
+  display: block; /* Блочний рівень */
+  width: 100%; /* Повна ширина */
+  padding: 1rem; /* Відступи */
+  margin-bottom: 1.5rem; /* Відступ знизу */
+  border: 2px solid #e0e0e0; /* Світло-сіра рамка */
+  border-radius: 8px; /* Заокруглені кути */
+  font-size: 1rem; /* Розмір шрифту */
+  transition: border-color 0.3s; /* Плавний перехід */
+}
+
+/* Стан фокусу поля введення форми */
+form input:focus,
+form textarea:focus {
+  border-color: var(--primary); /* Помаранчева рамка при фокусі */
+  outline: none; /* Видалення стандартного контуру фокусу */
+}
+
+/* Стилізація кнопки форми */
+form button {
+  display: block; /* Блочний рівень */
+  width: 100%; /* Повна ширина */
+  padding: 1rem; /* Відступи */
+  background: linear-gradient(135deg, var(--primary), var(--primary-light)); /* Помаранчевий градієнт */
+  color: white; /* Білий текст */
+  border: none; /* Без рамки */
+  border-radius: 8px; /* Заокруглені кути */
+  cursor: pointer; /* Курсор-вказівник */
+  font-size: 1.1rem; /* Розмір шрифту */
+  font-weight: 600; /* Напівжирний */
+  transition: all 0.3s; /* Плавний перехід */
+  box-shadow: 0 4px 15px rgba(255, 126, 29, 0.3); /* Тінь для глибини */
+}
+
+/* Стан кнопки форми при наведенні */
+form button:hover {
+  background: linear-gradient(135deg, var(--primary-light), var(--primary)); /* Зворотний градієнт */
+  transform: translateY(-3px); /* Невеликий підйом */
+  box-shadow: 0 6px 20px rgba(255, 126, 29, 0.5); /* Більша тінь */
+}
+
+/* Стилі повідомлень про помилки */
+.error-message {
+  color: #e53935; /* Червоний колір */
+  font-size: 0.9rem; /* Малий розмір шрифту */
+  margin-bottom: 1rem; /* Відступ знизу */
+  min-height: 1.2rem; /* Мінімальна висота для запобігання зміщенню макету */
+  display: flex; /* Для вирівнювання іконки */
+  align-items: center; /* Центрування по вертикалі */
+}
+
+/* Іконка повідомлення про помилку */
+.error-message:not(:empty)::before {
+  content: "⚠️"; /* Емодзі попередження */
+  margin-right: 0.5rem; /* Відступ справа */
+}
+
+/* Стилі профілю користувача */
+.user-info {
+  background-color: var(--light); /* Білий фон */
+  padding: 2rem; /* Відступи */
+  border-radius: 15px; /* Заокруглені кути */
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1); /* Тінь для глибини */
+  margin-bottom: 2rem; /* Відступ знизу */
+}
+
+/* Заголовок профілю користувача */
+.user-info h2 {
+  color: var(--primary); /* Помаранчевий колір */
+  margin-bottom: 1.5rem; /* Відступ знизу */
+  font-size: 2rem; /* Великий розмір шрифту */
+  font-weight: 700; /* Жирний */
+  display: flex; /* Для вирівнювання іконки */
+  align-items: center; /* Центрування по вертикалі */
+}
+
+/* Іконка заголовка профілю користувача */
+.user-info h2::before {
+  content: "👤"; /* Емодзі людини */
+  margin-right: 0.5rem; /* Відступ справа */
+}
+
+/* Абзац профілю користувача */
+.user-info p {
+  margin-bottom: 1rem; /* Відступ знизу */
+  font-size: 1.1rem; /* Розмір шрифту */
+  display: flex; /* Для вирівнювання іконки */
+  align-items: center; /* Центрування по вертикалі */
+}
+
+/* Іконки абзаців профілю користувача */
+.user-info p:nth-of-type(1)::before {
+  content: "📧"; /* Емодзі електронної пошти */
+  margin-right: 0.5rem; /* Відступ справа */
+}
+
+.user-info p:nth-of-type(2)::before {
+  content: "📱"; /* Емодзі телефону */
+  margin-right: 0.5rem; /* Відступ справа */
+}
+
+/* Контейнер дій користувача */
+.user-actions {
+  display: grid; /* Сіткове розташування */
+  grid-template-columns: repeat(2, 1fr); /* Два стовпці */
+  gap: 1rem; /* Відстань між кнопками */
+}
+
+/* Кнопки дій користувача */
+.user-actions .btn {
+  display: flex; /* Для центрування тексту */
+  justify-content: center; /* Центрування по горизонталі */
+  align-items: center; /* Центрування по вертикалі */
+  padding: 1rem; /* Відступи */
+  border-radius: 10px; /* Заокруглені кути */
+  font-weight: 600; /* Напівжирний */
+  transition: all 0.3s; /* Плавний перехід */
+}
+
+/* Кнопка редагування профілю */
+.user-actions .btn:nth-child(1) {
+  background: linear-gradient(135deg, var(--secondary), var(--secondary-light)); /* Синій градієнт */
+  box-shadow: 0 4px 10px rgba(30, 136, 229, 0.3); /* Тінь для глибини */
+}
+
+/* Стан кнопки редагування профілю при наведенні */
+.user-actions .btn:nth-child(1):hover {
+  background: linear-gradient(135deg, var(--secondary-light), var(--secondary)); /* Зворотний градієнт */
+  transform: translateY(-3px); /* Невеликий підйом */
+  box-shadow: 0 6px 15px rgba(30, 136, 229, 0.4); /* Більша тінь */
+}
+
+/* Кнопка пропонування поїздки */
+.user-actions .btn:nth-child(2) {
+  background: linear-gradient(135deg, var(--accent), var(--accent-light)); /* Зелений градієнт */
+  box-shadow: 0 4px 10px rgba(0, 200, 83, 0.3); /* Тінь для глибини */
+}
+
+/* Стан кнопки пропонування поїздки при наведенні */
+.user-actions .btn:nth-child(2):hover {
+  background: linear-gradient(135deg, var(--accent-light), var(--accent)); /* Зворотний градієнт */
+  transform: translateY(-3px); /* Невеликий підйом */
+  box-shadow: 0 6px 15px rgba(0, 200, 83, 0.4); /* Більша тінь */
+}
+
+/* Кнопка моїх поїздок */
+.user-actions .btn:nth-child(3) {
+  background: linear-gradient(135deg, var(--primary), var(--primary-light)); /* Помаранчевий градієнт */
+  box-shadow: 0 4px 10px rgba(255, 126, 29, 0.3); /* Тінь для глибини */
+}
+
+/* Стан кнопки моїх поїздок при наведенні */
+.user-actions .btn:nth-child(3):hover {
+  background: linear-gradient(135deg, var(--primary-light), var(--primary)); /* Зворотний градієнт */
+  transform: translateY(-3px); /* Невеликий підйом */
+  box-shadow: 0 6px 15px rgba(255, 126, 29, 0.4); /* Більша тінь */
+}
+
+/* Кнопка виходу */
+.user-actions .btn:nth-child(4) {
+  background: linear-gradient(135deg, #757575, #9e9e9e); /* Сірий градієнт */
+  box-shadow: 0 4px 10px rgba(117, 117, 117, 0.3); /* Тінь для глибини */
+}
+
+/* Стан кнопки виходу при наведенні */
+.user-actions .btn:nth-child(4):hover {
+  background: linear-gradient(135deg, #9e9e9e, #757575); /* Зворотний градієнт */
+  transform: translateY(-3px); /* Невеликий підйом */
+  box-shadow: 0 6px 15px rgba(117, 117, 117, 0.4); /* Більша тінь */
+}
+
+/* Стилі для розділів профілю */
+.profile-section {
+  background-color: var(--light);
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  margin-bottom: 2rem;
+}
+
+.profile-section h3 {
+  color: var(--primary);
+  margin-bottom: 1.5rem;
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.form-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.btn-secondary {
+  background: linear-gradient(135deg, #757575, #9e9e9e) !important;
+  box-shadow: 0 4px 10px rgba(117, 117, 117, 0.3) !important;
+}
+
+.btn-secondary:hover {
+  background: linear-gradient(135deg, #9e9e9e, #757575) !important;
+  box-shadow: 0 6px 15px rgba(117, 117, 117, 0.4) !important;
+}
+
+.trips-list {
+  display: grid;
+  gap: 1.5rem;
+}
+
+/* Службові класи */
+.btn {
+  display: inline-block; /* Інлайн-блок для правильного розміру */
+  padding: 0.8rem 1.5rem; /* Відступи */
+  background: linear-gradient(135deg, var(--primary), var(--primary-light)); /* Помаранчевий градієнт */
+  color: white; /* Білий текст */
+  text-decoration: none; /* Видалення підкреслення */
+  border-radius: 8px; /* Заокруглені кути */
+  border: none; /* Без рамки */
+  cursor: pointer; /* Курсор-вказівник */
+  font-weight: 600; /* Напівжирний */
+  transition: all 0.3s; /* Плавний перехід */
+  box-shadow: 0 4px 15px rgba(255, 126, 29, 0.3); /* Тінь для глибини */
+}
+
+/* Стан кнопки при наведенні */
+.btn:hover {
+  background: linear-gradient(135deg, var(--primary-light), var(--primary)); /* Зворотний градієнт */
+  transform: translateY(-3px); /* Невеликий підйом */
+  box-shadow: 0 6px 20px rgba(255, 126, 29, 0.5); /* Більша тінь */
+}
+
+/* Кольори українського прапора для спеціальних елементів */
+.ukrainian-flag {
+  background: linear-gradient(to bottom, var(--blue) 50%, var(--yellow) 50%); /* Кольори українського прапора */
+}
+
+/* Адаптивні стилі */
+@media (max-width: 768px) {
+  .welcome-content h1 {
+    font-size: 2.5rem; /* Менший розмір шрифту на мобільних */
+  }
+
+  .welcome-content p {
+    font-size: 1.2rem; /* Менший розмір шрифту на мобільних */
+  }
+
+  .user-actions {
+    grid-template-columns: 1fr; /* Один стовпець на мобільних */
+  }
+
+  .search-filter-panel form {
+    flex-direction: column; /* Вертикальне розташування на мобільних */
+  }
+
+  .route-summary,
+  .driver-info,
+  .route-timeline {
+    margin: 1rem; /* Менші відступи на мобільних */
+  }
+
+  .form-actions {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 480px) {
+  .welcome-content h1 {
+    font-size: 2rem; /* Ще менший розмір шрифту на малих мобільних */
+  }
+
+  .welcome-content p {
+    font-size: 1rem; /* Ще менший розмір шрифту на малих мобільних */
+  }
+
+  .btn-go {
+    padding: 0.8rem 2rem; /* Менші відступи на малих мобільних */
+    font-size: 1rem; /* Менший розмір шрифту на малих мобільних */
+  }
+
+  .tabs {
+    flex-direction: column; /* Вертикальне розташування вкладок на малих мобільних */
+  }
+}
+
+
+
+
+
+
+footer {
+  background-color: #1a1a2e;
+  color: #fff;
+  padding: 20px 0;
+}
+
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.footer-left {
+  width: 20%;
+}
+
+.footer-middle {
+  width: 50%;
+}
+
+.footer-right {
+  width: 20%;
+}
+
+.logo {
+  font-size: 2em;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.partners {
+  display: flex;
+  flex-direction: column;
+}
+
+.partner {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.partner img {
+  width: 30px;
+  margin-right: 10px;
+}
+
+.footer-columns {
+  display: flex;
+  justify-content: space-between;
+}
+
+.column {
+  width: 30%;
+}
+
+.column h3 {
+  margin-bottom: 10px;
+}
+
+.column ul {
+  list-style: none;
+  padding: 0;
+}
+
+.column li {
+  margin-bottom: 5px;
+}
+
+.contacts, .inquiries, .careers {
+  margin-bottom: 20px;
+}
+
+.copyright {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 20px auto 0;
+  padding: 0 20px;
+}
+
+.social-icons a {
+  margin-left: 10px;
+}
+
+social-icons img {
+  width: 24px;
+}
+
+.partner img {
+  width: auto; 
+  height: 35px; 
+  margin-right: 10px;
+}
+
+.social-icons img {
+  width: auto;
+  height: 28px; 
+}

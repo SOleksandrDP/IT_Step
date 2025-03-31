@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Destinations - TravelUkraine</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <header class="site-header">
+        <a href="/" class="logo">TravelUkraine</a>
+        <nav>
+            <button id="searchBtn" class="icon-btn">🔍</button>
+            <button id="filterBtn" class="icon-btn">🔧</button>
+            <a href="/profile" class="icon-btn">👤</a>
+        </nav>
+    </header>
+
+    <div id="searchFilterPanel" class="search-filter-panel hidden">
+        <form id="searchFilterForm">
+            <input type="text" id="fromLocation" placeholder="From">
+            <input type="text" id="toLocation" placeholder="To">
+            <div class="price-range">
+                <label for="priceRange">Price Range: <span id="priceRangeValue">0 --20 000 UAH</span></label>
+                <input type="range" id="priceRange" min="0" max="20000" step="50" value="0">
+            </div>
+            <button type="submit">Apply Filters</button>
+        </form>
+    </div>
+
+    <main>
+        <section id="popularDestinations">
+            <h2>Popular Destinations</h2>
+            <div class="destinations-grid">
+                <!-- Destinations will be inserted here by JavaScript -->
+            </div>
+        </section>
+
+        <section id="availableTrips" class="hidden">
+            <h2>Available Trips</h2>
+            <button id="backToDestinations" class="btn">Back to Destinations</button>
+            <div id="tripsList">
+                <!-- Available trips will be inserted here by JavaScript -->
+            </div>
+        </section>
+    </main>
+
+    <script src="{% static 'css/script.js' %}"></script>
+</body>
+</html>
