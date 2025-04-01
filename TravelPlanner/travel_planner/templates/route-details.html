@@ -1,24 +1,19 @@
-<!DOCTYPE html>
+{% extends "layout.html" %}
 {% load static %}
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Route Details - TravelUkraine</title>
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-    <script src="{% static 'js/script.js' %}" defer></script>
-</head>
-<body>
+
+{% block title %}
+    Route Details - TravelUkraine
+{% endblock %}
+
+{% block header %}
     <header class="site-header">
         <a href="/destinations" class="back-btn">←</a>
         <h1>Trip Details</h1>
         <a href="/" class="logo">TravelUkraine</a>
     </header>
-
+{% endblock %}
+{% block content %}
     <main id="routeDetails">
         <!-- Route details will be inserted here by JavaScript -->
     </main>
-</body>
-</html>
-
-
+{% block %}

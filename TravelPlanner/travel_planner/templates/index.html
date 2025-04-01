@@ -1,31 +1,28 @@
-<!DOCTYPE html>
+{% extends "layout.html" %}
 {% load static %}
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TravelUkraine - Explore Ukraine Together</title>
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <script src="{% static 'js/script.js' %}" defer></script>
-</head>
-<body>
-    <div class="welcome-page">
-        <div class="background-slider">
-            <!-- Background images will be inserted here by JavaScript -->
-        </div>
-        <div class="content">
-            <div class="welcome-content">
-                <h1>Welcome to TravelUkraine</h1>
-                <p>Discover the beauty of Ukraine with local travel companions</p>
-                <a href="/destinations" class="btn-go">Start Exploring</a>
-            </div>
-        </div>
-        <div class="slider-controls">
-            <!-- Slider dots will be inserted here by JavaScript -->
+{% block title %}
+    TravelUkraine - Explore Ukraine Together
+{% endblock %}
+
+{% block div %}
+<div class="welcome-page">
+    <div class="background-slider">
+        <!-- Background images will be inserted here by JavaScript -->
+    </div>
+    <div class="content">
+        <div class="welcome-content">
+            <h1>Welcome to TravelUkraine</h1>
+            <p>Discover the beauty of Ukraine with local travel companions</p>
+            <a href="/destinations" class="btn-go">Start Exploring</a>
         </div>
     </div>
+    <div class="slider-controls">
+        <!-- Slider dots will be inserted here by JavaScript -->
+    </div>
+</div>
+{% endblock %}
 
+{% block footer %}
     <footer>
         <div class="footer-container">
             <div class="footer-left">
@@ -104,6 +101,4 @@
             </div>
         </div>
     </footer>
-</body>
-</html>
-
+{% endblock %}

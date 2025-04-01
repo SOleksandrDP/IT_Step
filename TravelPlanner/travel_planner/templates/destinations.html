@@ -1,14 +1,11 @@
-<!DOCTYPE html>
+{% extends "layout.html" %}
 {% load static %}
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Destinations - TravelUkraine</title>
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-    <script src="{% static 'js/script.js' %}" defer></script>
-</head>
-<body>
+
+{% block title %}
+    Destinations - TravelUkraine
+{% endblock %}
+
+{% block header %}
     <header class="site-header">
         <a href="/" class="logo">TravelUkraine</a>
         <nav>
@@ -17,7 +14,9 @@
             <a href="/profile" class="icon-btn">👤</a>
         </nav>
     </header>
+{% endblock %}
 
+{% block div %}
     <div id="searchFilterPanel" class="search-filter-panel hidden">
         <form id="searchFilterForm">
             <input type="text" id="fromLocation" placeholder="From">
@@ -29,8 +28,9 @@
             <button type="submit">Apply Filters</button>
         </form>
     </div>
+{% endblock %}
 
-    <main>
+{% block content %}
         <section id="popularDestinations">
             <h2>Popular Destinations</h2>
             <div class="destinations-grid">
@@ -45,6 +45,4 @@
                 <!-- Available trips will be inserted here by JavaScript -->
             </div>
         </section>
-    </main>
-</body>
-</html>
+{% endblock %}
