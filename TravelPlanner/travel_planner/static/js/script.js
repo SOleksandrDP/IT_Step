@@ -1,7 +1,7 @@
 // Ініціалізація слайдера на головній сторінці
 function initWelcomeSlider() {
   // Масив зображень для слайдера
-  const images = ["img/Kyiv.jpg", "img/hark.jpg", "img/Crimea.jpg", "img/lviv.jpg"]
+  const images = ["/static/img/Kyiv.jpg", "/static/img/hark.jpg", "/static/img/Crimea.jpg", "/static/img/lviv.jpg"]
 
   // Індекс поточного зображення
   let currentImage = 0
@@ -90,79 +90,79 @@ const popularDestinations = [
   {
     id: 1,
     name: "Київ",
-    image: "img/k.icon.jpg",
+    image: "/static/img/k.icon.jpg",
     description: "Вібруюча столиця з золотими куполами та багатою історією",
   },
   {
     id: 2,
     name: "Львів",
-    image: "img/l.icon.jpg",
+    image: "/static/img/l.icon.jpg",
     description: "Чарівне середньовічне місто з бруківкою та кавовою культурою",
   },
   {
     id: 3,
     name: "Одеса",
-    image: "img/o.icon.jpg",
+    image: "/static/img/o.icon.jpg",
     description: "Перлина біля моря з прекрасними пляжами та архітектурою 19-го століття",
   },
   {
     id: 4,
     name: "Карпатські гори",
-    image: "img/Karp.icon.jpg",
+    image: "/static/img/Karp.icon.jpg",
     description: "Захоплюючі гірські хребти з туристичними стежками та гірськолижними курортами",
   },
   {
     id: 5,
     name: "Харків",
-    image: "img/Harkiv.jpg",
+    image: "/static/img/Harkiv.jpg",
     description: "Науковий та культурний центр із численними парками та визначними пам'ятками.",
   },
   {
     id: 6,
     name: "Дніпро",
-    image: "img/Dnipro.jpg",
+    image: "/static/img/Dnipro.jpg",
     description: "Місто на Дніпрі, відоме своєю промисловістю та сучасною інфраструктурою.",
   },
   {
     id: 7,
     name: "Чернівці",
-    image: "img/Chernivtsi.jpg",
+    image: "/static/img/Chernivtsi.jpg",
     description: "Місто з європейською архітектурою, відоме своїм університетом та культурною спадщиною.",
   },
   {
     id: 8,
     name: "Ужгород",
-    image: "img/Uzgorod.jpg",
+    image: "/static/img/Uzgorod.jpg",
     description: "Мальовниче прикордонне місто з унікальною історією та атмосферою.",
   },
   {
     id: 9,
     name: "Полтава",
-    image: "img/Poltava.jpg",
+    image: "/static/img/Poltava.jpg",
     description: "Історичне місто, відоме своїм літературним надбанням і українськими традиціями.",
   },
   {
     id: 10,
     name: "Запоріжжя",
-    image: "img/Zaporizhya.jpg",
+    image: "/static/img/Zaporizhya.jpg",
     description: "Місто з козацькою спадщиною та найбільшим островом на Дніпрі – Хортицею.",
   },
   {
     id: 11,
     name: "Івано-Франківськ",
-    image: "img/Ivano-Frankivsk.jpg",
+    image: "/static/img/Ivano-Frankivsk.jpg",
     description: "Затишне місто з історичною архітектурою та унікальною атмосферою.",
   },
   {
     id: 12,
     name: "Луцьк",
-    image: "img/Lutsk.jpg",
+    image: "/static/img/Lutsk.jpg",
     description: "Старовинне місто з потужною фортецею та багатою історією.",
   },
   {
     id: 13,
     name: "Миколаїв",
-    image: "img/Mykolaiv.jpg",
+    image: "/static/img/Mykolaiv.jpg",
     description: "Важливий суднобудівний центр України, розташований на Південному Бузі.",
   }
 ]
@@ -1098,18 +1098,20 @@ document.addEventListener("DOMContentLoaded", () => {
   // Перевірка статусу авторизації на кожній сторінці
   updateProfileLink()
 
+  console.log(window.location.pathname)
+
   // Ініціалізація відповідної сторінки в залежності від URL
   if (
-    window.location.pathname.includes("index.html") ||
+    window.location.pathname.includes("index") ||
     window.location.pathname === "/" ||
     window.location.pathname === ""
   ) {
     initWelcomeSlider()
-  } else if (window.location.pathname.includes("destinations.html")) {
+  } else if (window.location.pathname.includes("destinations")) {
     initDestinationsPage()
-  } else if (window.location.pathname.includes("route-details.html")) {
+  } else if (window.location.pathname.includes("route-details")) {
     initRouteDetailsPage()
-  } else if (window.location.pathname.includes("profile.html")) {
+  } else if (window.location.pathname.includes("profile")) {
     initProfilePage()
   }
 })
@@ -1207,15 +1209,13 @@ function updateSuggestions(inputId, inputValue) {
     }
 }
 
-// Добавляем обработчики событий для полей ввода
-document.getElementById("fromLocation").addEventListener("input", renderFilteredTrips);
-document.getElementById("toLocation").addEventListener("input", renderFilteredTrips);
+  // Добавляем обработчики событий для полей ввода
+  if(document.getElementById("fromLocation") != null)
+  {
+    document.getElementById("fromLocation").addEventListener("input", renderFilteredTrips);
+  }
 
-
-
-
-
-
-
-
-
+  if(document.getElementById("toLocation") != null)
+  {
+    document.getElementById("toLocation").addEventListener("input", renderFilteredTrips);
+  }

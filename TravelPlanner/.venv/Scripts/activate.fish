@@ -33,7 +33,7 @@ end
 # Unset irrelevant variables.
 deactivate nondestructive
 
-set -gx VIRTUAL_ENV 'H:\_Diesel\IT_Step\Web\TravelPlanner\.venv'
+set -gx VIRTUAL_ENV 'H:\_Diesel\IT_Step\Web\IT_Step\TravelPlanner\.venv'
 
 set -gx _OLD_VIRTUAL_PATH $PATH
 set -gx PATH "$VIRTUAL_ENV/"Scripts $PATH
