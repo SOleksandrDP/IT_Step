@@ -1,28 +1,55 @@
-from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.shortcuts import render
+from django.http import JsonResponse
+from django.contrib.auth import authenticate, login
+from .models import CustomUser
+from .forms import LoginForm
+from django.contrib.auth.hashers import make_password
+
+def profile_view(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        email = request.POST.get('email')
+        phone = request.POST.get('phone')
+        city = request.POST.get('city')
+        password = request.POST.get('password')
+        confirm = request.POST.get('confirmPassword')
+
+        if password != confirm:
+            return JsonResponse({'success': False, 'error': 'Passwords do not match'})
+
+        if CustomUser.objects.filter(username=username).exists():
+            return JsonResponse({'success': False, 'error': 'Username already taken'})
+
+        try:
+            user = CustomUser.objects.create(
+                username=username,
+                email=email,
+                phone=phone,
+                city=city,
+                password=make_password(password)
+            )
+            login(request, user)
+            return JsonResponse({'success': True, 'redirect_url': '/profile/'})
+        except Exception as e:
+            return JsonResponse({'success': False, 'error': str(e)})
+
+    return render(request, 'profile.html')
 
 def login_view(request):
     if request.method == 'POST':
-        form = AuthenticationForm(data=request.POST)
+        form = LoginForm(request.POST)
         if form.is_valid():
-            user = form.get_user()
-            login(request, user)
-            return redirect('homepage')  # змінити на свою домашню сторінку
-    else:
-        form = AuthenticationForm()
-    return render(request, 'accounts/login.html', {'form': form})
-
-def logout_view(request):
-    logout(request)
-    return redirect('login')
-
-def register_view(request):
-    if request.method == 'POST':
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('login')
-    else:
-        form = UserCreationForm()
-    return render(request, 'accounts/register.html', {'form': form})
+            email = form.cleaned_data['email']
+            password = form.cleaned_data['password']
+            try:
+                user = CustomUser.objects.get(email=email)
+                auth_user = authenticate(request, username=user.username, password=password)
+                if auth_user is not None:
+                    login(request, auth_user)
+                    return JsonResponse({'success': True, 'message': 'Login successful'})
+                else:
+                    return JsonResponse({'success': False, 'message': 'Invalid credentials'})
+            except CustomUser.DoesNotExist:
+                return JsonResponse({'success': False, 'message': 'Email not found'})
+        else:
+            return JsonResponse({'success': False, 'message': 'Invalid form'})

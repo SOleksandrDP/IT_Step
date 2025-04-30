@@ -738,8 +738,8 @@ function initProfilePage() {
   const userProfile = document.getElementById("userProfile")
   const tabs = document.querySelectorAll(".tab")
   const tabContents = document.querySelectorAll(".tab-content")
-  const registerForm = document.querySelector("#registerForm form")
-  const loginForm = document.querySelector("#loginForm form")
+  const registerForm = document.getElementById("registerForm")
+  const loginForm = document.getElementById("loginForm")
   const errorMessages = document.querySelectorAll(".error-message")
 
   // Перевірка чи користувач вже увійшов
@@ -757,7 +757,7 @@ function initProfilePage() {
       tabs.forEach((t) => t.classList.remove("active"))
       tabContents.forEach((c) => c.classList.remove("active"))
       tab.classList.add("active")
-      document.getElementById(`${tabId}Form`).classList.add("active")
+      document.getElementById(`${tabId}Div`).classList.add("active")
 
       // Очищення повідомлень про помилки при перемиканні вкладок
       errorMessages.forEach((msg) => (msg.textContent = ""))
@@ -765,7 +765,7 @@ function initProfilePage() {
   })
 
   // Обробка форми реєстрації
-  registerForm.addEventListener("submit", (e) => {
+  registerForm.addEventListener("submit", async function (e) {
     e.preventDefault()
     const formData = new FormData(registerForm)
     const userData = Object.fromEntries(formData.entries())
@@ -781,6 +781,25 @@ function initProfilePage() {
     }
 
     try {
+      const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+      
+      const response = await fetch("/profile/", {
+        method: "POST",
+        headers: {
+            "X-CSRFToken": csrfToken
+        },
+        body: formData
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+          //window.location.href = data.redirect_url;
+      } else {
+          registerError.textContent = data.error || "Registration failed.";
+          return;
+      }
+
       // Реєстрація користувача
       const newUser = registerUser(userData)
 
@@ -800,7 +819,7 @@ function initProfilePage() {
   })
 
   // Обробка форми входу
-  loginForm.addEventListener("submit", (e) => {
+  loginForm.addEventListener("submit", async function (e) {
     e.preventDefault()
     const formData = new FormData(loginForm)
     const loginData = Object.fromEntries(formData.entries())
@@ -810,6 +829,26 @@ function initProfilePage() {
     loginError.textContent = ""
 
     try {
+      const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+      
+      const response = await fetch("/profile/login/", {
+        method: "POST",
+        headers: {
+            "X-CSRFToken": csrfToken
+        },
+        body: formData
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+          //window.location.href = data.redirect_url;
+          loginError.textContent = "Authorization valid.";
+      } else {
+          loginError.textContent = data.error || "Authorization failed.";
+          return;
+      }
+
       // Спроба входу
       const user = loginUser(loginData.email, loginData.password)
 
