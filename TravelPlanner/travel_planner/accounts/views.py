@@ -53,3 +53,5 @@ def login_view(request):
                 return JsonResponse({'success': False, 'message': 'Email not found'})
         else:
             return JsonResponse({'success': False, 'message': 'Invalid form'})
+        
+
